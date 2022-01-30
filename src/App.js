@@ -1,5 +1,6 @@
 import React ,{ useEffect } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
+import ConnectButton from './components/connectButton';
 import './App.css';
 
 
@@ -17,6 +18,11 @@ const App = () => {
       if (solana) {
         if (solana.isPhantom) {
           console.log("👻 Phantom wallet found!")
+
+          // The solana object gives us a function that will let us connect to our wallet
+          const res = await solana.connect({ onlyIfTrusted: true });
+
+          console.log(`Connected with Public Key: ${res.publicKey.toString()}`);
         }
       } else {
         alert("Solana object not found! Get a Phantom Wallet 👻");
@@ -42,6 +48,7 @@ const App = () => {
           <p className="sub-text">
             View your Anime collection in the metaverse ✨
           </p>
+          <ConnectButton />
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
